@@ -40,8 +40,9 @@
                                         <input type="hidden" name="address_id" value="{{ address.id }}" />
                                         {% if address.is_default_for_shipping %}
                                             <button type="submit" class="btn btn-success btn-large ship-address" data-loading-text="{% trans 'Saving...' %}"><i class="fas fa-check-circle"></i> {% trans "Ship to your default shipping address" %}</button>
-                                        {% else %}
-                                            <button type="submit" class="btn btn-primary btn-large ship-address" data-loading-text="{% trans 'Saving...' %}">{% trans "Ship to this address" %}</button>
+                                        {% else %}                                        
+                                            <a  href="{% url 'checkout:preview' %}" class="btn btn-primary btn-large ship-addres">{% trans "Ship to this address" %}</a>
+                                            {% comment %} <button type="submit" class="btn btn-primary btn-large ship-address" data-loading-text="{% trans 'Saving...' %}">{% trans "Ship to this address" %}</button> {% endcomment %}
                                         {% endif %}
 
                                         <div class="btn-group address-controls">
@@ -72,7 +73,8 @@
                 {% include "oscar/partials/form_fields.html" with form=form style='horizontal' %}
                 <div class="form-group row">
                     <div class="offset-sm-4 col-sm-8">
-                        <button type="submit" class="btn btn-lg btn-primary" data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
+                        <a id="view_preview" href="{% url 'checkout:preview' %}" class="btn btn-primary btn-lg">{% trans "Continue" %}</a>
+                        {% comment %} <button type="submit" class="btn btn-lg btn-primary" data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button> {% endcomment %}
                         {% trans "or" %} <a href="{% url 'basket:summary' %}">{% trans "return to basket" %}</a>
                     </div>
                 </div>

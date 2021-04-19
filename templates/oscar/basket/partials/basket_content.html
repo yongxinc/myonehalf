@@ -1,3 +1,4 @@
+{% extends 'oscar/basket/partials/basket_content.html' %}
 {% load i18n %}
 {% load image_tags %}
 {% load currency_filters %}
@@ -154,6 +155,12 @@
 
 
     {% block formactions %}
+        {% if anon_checkout_allowed or request.user.is_authenticated %}
+            {% if basket.total_excl_tax > 0 %}
+                <a href="{% url 'paypal-redirect' %}"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+            {% endif %}
+        {% endif %}
+        
         <div class="form-group clearfix">
             <div class="row">
                 <div class="col-sm-4 offset-sm-8">
