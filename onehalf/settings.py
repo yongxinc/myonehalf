@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     'treebeard',
     'sorl.thumbnail',   # Default thumbnail backend, can be replaced
     'django_tables2',
+    'paypal', #paypal
 ]
 
 SITE_ID = 1
@@ -152,7 +153,8 @@ WSGI_APPLICATION = 'onehalf.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -194,6 +196,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+# Taken from PayPal's documentation - these should always work in the sandbox
+PAYPAL_SANDBOX_MODE = True
+PAYPAL_BRAND_NAME = 'onehalf'
+PAYPAL_CALLBACK_HTTPS = False
+PAYPAL_API_VERSION = '119'
+
+# These are the standard PayPal sandbox details from the docs - but I don't
+# think you can get access to the merchant dashboard.
+PAYPAL_API_USERNAME = 'sb-dfeqw5889728_api1.business.example.com'
+PAYPAL_API_PASSWORD = 'KQXTSGH2M7VWUHTG'
+PAYPAL_API_SIGNATURE = 'AZF4B4AxA5hj-ea5556R2XghHhGfAnpasHsrhXixyOoKP9r0DXGZkyem'
+
+# Standard currency is GBP
+PAYPAL_CURRENCY = PAYPAL_PAYFLOW_CURRENCY = 'TWD'
+PAYPAL_PAYFLOW_DASHBOARD_FORMS = True
+
+try:
+    from integration import *  # noqa
+except ImportError:
+    pass
 
 AUTHENTICATION_BACKENDS = (
     'oscar.apps.customer.auth_backends.EmailBackend',

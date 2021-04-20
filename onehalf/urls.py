@@ -13,7 +13,8 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 
 
-
+    # PayPal Express integration...
+    path('checkout/paypal/', include('paypal.express.urls')),
     path('admin/', admin.site.urls),
 
     path('', include(apps.get_app_config('oscar').urls[0])),
